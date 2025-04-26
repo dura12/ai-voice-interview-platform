@@ -79,9 +79,7 @@ const Agent = ({ userName }: AgentProps) => {
             <span
               className={cn(
                 "absolute animate-ping rounded-full opacity-75",
-                 callStatus === CallStatus.CONNECTING ? "" : "hidden" // Show only if CONNECTING
-                // Alternatively: callStatus === CallStatus.CONNECTING ? "inline-flex" : "hidden"
-                // The original logic was slightly off, this corrects it.
+                 callStatus === CallStatus.CONNECTING ? "" : "hidden" 
               )}
             />
 
