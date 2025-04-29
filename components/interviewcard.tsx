@@ -1,29 +1,28 @@
 import dayjs from "dayjs";
 import Link from "next/link";
 import Image from "next/image";
-import {getRandomInterviewCover} from "@/lib/utils";
-import DisplayTechIcons from "./displaytechicons";
-import { Button } from "./ui/button";
-// import DisplayTechIcons from "./DisplayTechIcons";
 
-// import { cn, getRandomInterviewCover } from "@/lib/utils";
-// import { getFeedbackByInterviewId } from "@/lib/actions/general.action";
+import { Button } from "./ui/button";
+import DisplayTechIcons from "./displaytechicons";
+
+import { cn, getRandomInterviewCover } from "@/lib/utils";
+import { getFeedbackByInterviewId } from "@/lib/actions/auth.actions";
 
 const InterviewCard = async ({
-  interviewId,
+  id,
   userId,
   role,
   type,
   techstack,
   createdAt,
 }: InterviewCardProps) => {
-  const feedback = null as Feedback | null;
-    // userId && interviewId
-    //   ? await getFeedbackByInterviewId({
-    //       interviewId,
-    //       userId,
-    //     })
-    //   : null;
+  const feedback =
+    userId && id
+      ? await getFeedbackByInterviewId({
+          id,
+          userId,
+        })
+      : null;
 
   const normalizedType = /mix/gi.test(type) ? "Mixed" : type;
 
@@ -43,9 +42,11 @@ const InterviewCard = async ({
       <div className="card-interview">
         <div>
           {/* Type Badge */}
-          <div 
-            className=
-              "absolute top-0 right-0 w-fit px-4 py-2 rounded-bl-lg"
+          <div
+            className={cn(
+              "absolute top-0 right-0 w-fit px-4 py-2 rounded-bl-lg",
+              badgeColor
+            )}
           >
             <p className="badge-text ">{normalizedType}</p>
           </div>
@@ -94,8 +95,8 @@ const InterviewCard = async ({
             <Link
               href={
                 feedback
-                  ? `/interview/${interviewId}/feedback`
-                  : `/interview/${interviewId}`
+                  ? `/interview/${id}/feedback`
+                  : `/interview/${id}`
               }
             >
               {feedback ? "Check Feedback" : "View Interview"}
