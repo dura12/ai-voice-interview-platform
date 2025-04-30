@@ -75,11 +75,11 @@ export async function getInterviewById(id: string): Promise<Interview | null> {
 export async function getFeedbackByInterviewId(
   params: GetFeedbackByInterviewIdParams
 ): Promise<Feedback | null> {
-  const { id, userId } = params;
+  const { interviewId, userId } = params;
 
   const querySnapshot = await db
     .collection("feedback")
-    .where("interviewId", "==", id)
+    .where("interviewId", "==", interviewId)
     .where("userId", "==", userId)
     .limit(1)
     .get();
