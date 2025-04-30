@@ -9,7 +9,7 @@ const monosans = Mona_Sans({
 
 
 export const metadata: Metadata = {
-  title: "smartPrep",
+  title: "CareerSpark",
   description: "AI interview assistance",
 };
 
