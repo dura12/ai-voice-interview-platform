@@ -16,6 +16,7 @@ import { Form } from "@/components/ui/form";
 import { Button } from "@/components/ui/button";
 import { signIn, signUp } from "@/lib/actions/auth.actions";
 import FormField from "./formfield";
+import { useState } from "react";
 const authFormSchema = (type : FormType) => {
   return z.object({
     name: type == 'sign-up'?  z.string().min(2) : z.string().optional(),
@@ -40,8 +41,9 @@ const AuthForm = ({ type } : {type : FormType} ) => {
       password: "",
     },
   })
-
+  const [loading, setLoading] = useState(false);
   const onSubmit = async (data: z.infer<typeof formSchema>) => {
+    setLoading(true);
     try {
       if (type === "sign-up") {
         const { name, email, password } = data;
@@ -93,6 +95,9 @@ const AuthForm = ({ type } : {type : FormType} ) => {
       console.log(error);
       toast.error(`There was an error: ${error}`);
     }
+    finally {
+      setLoading(false);
+    }
   };
 
   const isSignIn = type === "sign-in"
@@ -127,7 +132,15 @@ const AuthForm = ({ type } : {type : FormType} ) => {
                                   type = "password" 
                                 
                         />
-        <Button className='btn' type="submit">{isSignIn?  "Log in" : 'Create Account'}</Button>
+        <Button className='btn' type="submit"  disabled={loading}>
+              {loading
+                ? isSignIn
+                  ? "Logging you in..."
+                  : "Creating account..."
+                : isSignIn
+                ? "Log in"
+                : "Create Account"}
+            </Button>
         </form>
       </Form>
       <p className="text-center">

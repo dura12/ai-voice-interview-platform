@@ -1,46 +1,37 @@
-// src/app/layout.tsx
-import Link from 'next/link';
-import React, { ReactNode } from 'react';
-import Image from 'next/image';
+import Link from "next/link";
+import Image from "next/image";
+import { ReactNode } from "react";
 import { redirect } from "next/navigation";
-import { cookies } from 'next/headers';
-import { signOut } from "@/lib/actions/auth.actions";
-import { Button } from "@/components/ui/button";
+import { isAuthenticated } from "@/lib/actions/auth.actions";
+import SignOutButton from "@/components/signoutbutton";
 
-async function checkAuthStatus(): Promise<boolean> {
-  const cookieStore = cookies();
-  const sessionCookie = cookieStore.get("session")?.value;
-  return !!sessionCookie;
-}
+const Layout = async ({ children }: { children: ReactNode }) => {
+  const isUserAuthenticated = await isAuthenticated();
 
-const RootLayout = async ({ children }: { children: ReactNode }) => {
-  const isUserAuthenticated = await checkAuthStatus();
-  if (!isUserAuthenticated) redirect("/sign-in");
+  if (!isUserAuthenticated) {
+    redirect("/sign-in");
+  }
 
   return (
-    <div className='root-layout flex flex-col min-h-screen'>
-      <nav className='flex items-center justify-between px-4 py-3 md:px-6 border-b bg-background sticky top-0 z-10'>
-        <Link href='/' className='flex items-center gap-2'>
-          <Image src='/logo.svg' alt='logo' width={32} height={32} />
-          <h2 className='text-lg font-semibold text-primary-100'>CareerSpark</h2>
+    <div className="root-layout">
+      <nav className="flex justify-between items-center p-4">
+        <Link href="/" className="flex items-center gap-2">
+          <Image src="/logo.svg" alt="CareerSpark Logo" width={38} height={32} />
+          <h2 className="text-primary-100">CareerSpark</h2>
         </Link>
 
-        <form action={signOut}>
-          <Button type="submit" variant="outline" size="sm">
-            Sign Out
-          </Button>
-        </form>
+        {/* ✅ Show Sign Out if user is authenticated */}
+        <SignOutButton />
       </nav>
 
-      <main className='flex-grow p-4 md:p-6'>
-        {children}
-      </main>
+      <main className="flex-1">{children}</main>
 
-      <footer className='text-center p-4 border-t text-sm text-muted-foreground'>
+      {/* ✅ Footer */}
+      <footer className="text-center p-4 border-t text-sm text-gray-500">
         © {new Date().getFullYear()} CareerSpark. All rights reserved.
       </footer>
     </div>
   );
 };
 
-export default RootLayout;
+export default Layout;
