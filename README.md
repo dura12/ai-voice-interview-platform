@@ -64,27 +64,23 @@ npm install
 ``
 Bash
 🔑 Environment Variables
-# Vapi AI Credentials
+### Vapi AI Credentials
 NEXT_PUBLIC_VAPI_WEB_TOKEN=YOUR_VAPI_PUBLIC_TOKEN_HERE
 NEXT_PUBLIC_VAPI_WORKFLOW_ID=YOUR_VAPI_ASSISTANT_ID_HERE # Or other Vapi ID if needed
 
-# Google Gemini API Key
+### Google Gemini API Key
 GOOGLE_GENERATIVE_AI_API_KEY=YOUR_GOOGLE_GEMINI_API_KEY_HERE
 
-# Base URL for your application (important for API routes, etc.)
+### Base URL for your application (important for API routes, etc.)
 NEXT_PUBLIC_BASE_URL=http://localhost:3000 # Change if deploying
 
-# Firebase Configuration (Client-side)
+### Firebase Configuration (Client-side)
 NEXT_PUBLIC_FIREBASE_API_KEY=YOUR_FIREBASE_API_KEY
 NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN=YOUR_FIREBASE_AUTH_DOMAIN
 NEXT_PUBLIC_FIREBASE_PROJECT_ID=YOUR_FIREBASE_PROJECT_ID
 NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET=YOUR_FIREBASE_STORAGE_BUCKET
 NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID=YOUR_FIREBASE_MESSAGING_SENDER_ID
 NEXT_PUBLIC_FIREBASE_APP_ID=YOUR_FIREBASE_APP_ID
-
-# Firebase Admin SDK Configuration (Server-side/Admin tasks)
-# Ensure the private key is handled securely and not exposed client-side!
-# Often loaded from environment variables in deployment or service account file.
 FIREBASE_PROJECT_ID=YOUR_FIREBASE_PROJECT_ID
 FIREBASE_CLIENT_EMAIL=YOUR_FIREBASE_SERVICE_ACCOUNT_CLIENT_EMAIL
 FIREBASE_PRIVATE_KEY=YOUR_FIREBASE_SERVICE_ACCOUNT_PRIVATE_KEY_INCLUDING_NEWLINES
