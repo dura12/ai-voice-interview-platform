@@ -90,14 +90,6 @@ Important: Replace the placeholder values (YOUR_..._HERE) with your actual crede
 
 Security: Never commit your .env.local file containing sensitive keys to version control. The .gitignore file should already include .env.local.
 
-🏃 Running Locally
-Start the development server:
-
-npm run dev
-# or
-# yarn dev
-Use code with caution.
-Bash
 Open http://localhost:3000 (or the specified port) in your browser to see the application running.
 
 🎮 Usage
