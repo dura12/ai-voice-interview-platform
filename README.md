@@ -56,12 +56,12 @@ Make sure you have the following installed:
 ```
 git clone https://github.com/dura12/ai-voice-interview-platform.git
 cd ai_mock_interviews
-``
+```
 Installation
 Install the project dependencies:
 ```
 npm install
-``
+```
 Bash
 🔑 Environment Variables
 ### Vapi AI Credentials
