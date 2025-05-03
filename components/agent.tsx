@@ -145,7 +145,7 @@ const Agent = ({
 
   return (
     <>
-      <div className="call-view">
+      <div className="call-view py-6">
         {/* AI Interviewer Card */}
         <div className="card-interviewer">
           <div className="avatar">

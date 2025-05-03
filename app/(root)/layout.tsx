@@ -17,19 +17,19 @@ const Layout = async ({ children }: { children: ReactNode }) => {
       <nav className="flex justify-between items-center p-4">
         <Link href="/" className="flex items-center gap-2">
           <Image src="/logo.svg" alt="CareerSpark Logo" width={38} height={32} />
-          <h2 className="text-primary-100">CareerSpark</h2>
+          <h2 className="text-primary-100 sm:text-3xl text-xl">CareerSpark</h2>
         </Link>
 
         {/* ✅ Show Sign Out if user is authenticated */}
         <SignOutButton />
       </nav>
 
-      <main className="flex-1">{children}</main>
+      <main className=" min-h-screen flex-1">{children}</main>
 
       {/* ✅ Footer */}
-      <footer className="text-center p-4 border-t text-sm text-gray-500">
-        © {new Date().getFullYear()} CareerSpark. All rights reserved.
-      </footer>
+      <footer className="text-center p-4 border-t text-sm text-gray-500 mt-auto">
+    © {new Date().getFullYear()} CareerSpark. All rights reserved.
+  </footer>
     </div>
   );
 };
