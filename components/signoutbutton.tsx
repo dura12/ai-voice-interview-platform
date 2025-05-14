@@ -8,10 +8,14 @@ const SignOutButton = () => {
   const router = useRouter();
   const handleSignOut = async () => {
     try {
+      // Clear user ID from localStorage
+      localStorage.removeItem('userId');
+      
       await signOut();
       router.push("/sign-in");
       toast.success('Signed out Successfully')
-    } catch {
+    } catch (error) {
+      console.error("Error signing out:", error);
       toast.error("An error occurred during sign out.");
     }
   };

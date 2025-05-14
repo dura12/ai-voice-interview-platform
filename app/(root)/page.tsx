@@ -13,10 +13,11 @@ import {
 
 async function Home() {
   const user = await getCurrentUser();
+  if (!user) return null;
 
   const [userInterviews, allInterview] = await Promise.all([
-    getInterviewsByUserId(user?.id!),
-    getLatestInterviews({ userId: user?.id! }),
+    getInterviewsByUserId(user.id),
+    getLatestInterviews({ userId: user.id }),
   ]);
 
   const hasPastInterviews = userInterviews?.length! > 0;
@@ -33,7 +34,7 @@ async function Home() {
           </p>
 
           <Button asChild className="btn-primary max-sm:w-full">
-            <Link href="/interview">Start an Interview</Link>
+            <Link href="/generate">Start an Interview</Link>
           </Button>
         </div>
 
@@ -55,7 +56,8 @@ async function Home() {
             userInterviews?.map((interview) => (
               <InterviewCard
                 key={interview.id}
-                {... interview}
+                {...interview}
+                currentUserId={user.id}
               />
             ))
           ) : (
@@ -70,14 +72,15 @@ async function Home() {
 
       {/* Upcoming Interviews Section */}
       <section className="flex flex-col gap-6 mt-8">
-        <h2>Take Interviews</h2>
+        <h2>Look for Interviews</h2>
 
         <div className="interviews-section">
           {hasUpcomingInterviews ? (
             allInterview?.map((interview) => (
               <InterviewCard
                 key={interview.id}
-                {... interview}
+                {...interview}
+                currentUserId={user.id}
               />
             ))
           ) : (

@@ -54,6 +54,9 @@ const AuthForm = ({ type } : {type : FormType} ) => {
           password
         );
 
+        // Store user ID in localStorage after sign-up
+        localStorage.setItem('userId', userCredential.user.uid);
+
         const result = await signUp({
           uid: userCredential.user.uid,
           name: name!,
@@ -82,6 +85,9 @@ const AuthForm = ({ type } : {type : FormType} ) => {
           toast.error("Sign in Failed. Please try again.");
           return;
         }
+
+        // Store user ID in localStorage after sign-in
+        localStorage.setItem('userId', userCredential.user.uid);
 
         await signIn({
           email,

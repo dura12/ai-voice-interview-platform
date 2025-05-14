@@ -8,6 +8,16 @@ import DisplayTechIcons from "./displaytechicons";
 import { cn, getRandomInterviewCover } from "@/lib/utils";
 import { getFeedbackByInterviewId } from "@/lib/actions/auth.actions";
 
+interface InterviewCardProps {
+  id: string;
+  userId: string;
+  role: string;
+  type: string;
+  techstack: string[];
+  createdAt: string;
+  currentUserId: string;
+}
+
 const InterviewCard = async ({
   id,
   userId,
@@ -15,13 +25,13 @@ const InterviewCard = async ({
   type,
   techstack,
   createdAt,
+  currentUserId,
 }: InterviewCardProps) => {
   const feedback =
-    userId && id
+    userId === currentUserId && id
       ? await getFeedbackByInterviewId({
-          interviewId:id,
+          interviewId: id,
           userId
-          
         })
       : null;
 
@@ -49,7 +59,7 @@ const InterviewCard = async ({
               badgeColor
             )}
           >
-            <p className="badge-text ">{normalizedType}</p>
+            <p className="badge-text">{normalizedType}</p>
           </div>
 
           {/* Cover Image */}
@@ -76,16 +86,19 @@ const InterviewCard = async ({
               <p>{formattedDate}</p>
             </div>
 
-            <div className="flex flex-row gap-2 items-center">
-              <Image src="/star.svg" width={22} height={22} alt="star" />
-              <p>{feedback?.totalScore || "---"}/100</p>
-            </div>
+            {userId === currentUserId && (
+              <div className="flex flex-row gap-2 items-center">
+                <Image src="/star.svg" width={22} height={22} alt="star" />
+                <p>{feedback?.totalScore || "---"}/100</p>
+              </div>
+            )}
           </div>
 
           {/* Feedback or Placeholder Text */}
           <p className="line-clamp-2 mt-5">
-            {feedback?.finalAssessment ||
-              "You haven't taken this interview yet. Take it now to improve your skills."}
+            {userId === currentUserId 
+              ? (feedback?.finalAssessment || "You haven't taken this interview yet. Take it now to improve your skills.")
+              : "Take this interview to test your skills."}
           </p>
         </div>
 
@@ -94,13 +107,13 @@ const InterviewCard = async ({
 
           <Button className="btn-primary">
             <Link
-              href={
-                feedback
-                  ? `/interview/${id}/feedback`
-                  : `/interview/${id}`
-              }
+              href={userId === currentUserId && feedback 
+                ? `/interview/${id}/feedback`
+                : `/interview/${id}`}
             >
-              {feedback ? "Check Feedback" : "View Interview"}
+              {userId === currentUserId && feedback 
+                ? "Check Feedback" 
+                : "Take Interview"}
             </Link>
           </Button>
         </div>
