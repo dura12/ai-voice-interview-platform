@@ -1,6 +1,7 @@
 import dayjs from "dayjs";
 import Link from "next/link";
 import Image from "next/image";
+import { Clock, Target, BookOpen } from "lucide-react";
 
 import { Button } from "./ui/button";
 import DisplayTechIcons from "./displaytechicons";
@@ -16,6 +17,9 @@ interface InterviewCardProps {
   techstack: string[];
   createdAt: string;
   currentUserId: string;
+  difficulty?: "Beginner" | "Intermediate" | "Advanced";
+  duration?: number; // in minutes
+  category?: string;
 }
 
 const InterviewCard = async ({
@@ -26,6 +30,9 @@ const InterviewCard = async ({
   techstack,
   createdAt,
   currentUserId,
+  difficulty = "Intermediate",
+  duration = 30,
+  category = "General",
 }: InterviewCardProps) => {
   const feedback =
     userId === currentUserId && id
@@ -43,6 +50,12 @@ const InterviewCard = async ({
       Mixed: "bg-light-600",
       Technical: "bg-light-800",
     }[normalizedType] || "bg-light-600";
+
+  const difficultyColor = {
+    Beginner: "bg-green-500",
+    Intermediate: "bg-yellow-500",
+    Advanced: "bg-red-500",
+  }[difficulty];
 
   const formattedDate = dayjs(
     feedback?.createdAt || createdAt || Date.now()
@@ -92,6 +105,32 @@ const InterviewCard = async ({
                 <p>{feedback?.totalScore || "---"}/100</p>
               </div>
             )}
+          </div>
+
+          {/* New Features Section */}
+          <div className="mt-4 space-y-2">
+            {/* Difficulty Level */}
+            <div className="flex items-center gap-2">
+              <Target className="w-4 h-4 text-gray-400" />
+              <span className="text-sm text-gray-400">Difficulty:</span>
+              <span className={cn("px-2 py-1 rounded text-xs text-white", difficultyColor)}>
+                {difficulty}
+              </span>
+            </div>
+
+            {/* Duration */}
+            <div className="flex items-center gap-2">
+              <Clock className="w-4 h-4 text-gray-400" />
+              <span className="text-sm text-gray-400">Duration:</span>
+              <span className="text-sm">{duration} minutes</span>
+            </div>
+
+            {/* Category */}
+            <div className="flex items-center gap-2">
+              <BookOpen className="w-4 h-4 text-gray-400" />
+              <span className="text-sm text-gray-400">Category:</span>
+              <span className="text-sm">{category}</span>
+            </div>
           </div>
 
           {/* Feedback or Placeholder Text */}

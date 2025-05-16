@@ -23,6 +23,14 @@ async function Home() {
   const hasPastInterviews = userInterviews?.length! > 0;
   const hasUpcomingInterviews = allInterview?.length! > 0;
 
+  // Helper function to get interview properties
+  const getInterviewProperties = (interview: any) => ({
+    ...interview,
+    difficulty: interview.difficulty || "Intermediate",
+    duration: interview.duration || 30,
+    category: interview.category || "General",
+  });
+
   return (
     <>
       {/* Hero Section */}
@@ -56,7 +64,7 @@ async function Home() {
             userInterviews?.map((interview) => (
               <InterviewCard
                 key={interview.id}
-                {...interview}
+                {...getInterviewProperties(interview)}
                 currentUserId={user.id}
               />
             ))
@@ -79,7 +87,7 @@ async function Home() {
             allInterview?.map((interview) => (
               <InterviewCard
                 key={interview.id}
-                {...interview}
+                {...getInterviewProperties(interview)}
                 currentUserId={user.id}
               />
             ))
