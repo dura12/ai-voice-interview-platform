@@ -139,12 +139,6 @@ You can also open an issue on the GitHub Issues page.
 This project is licensed under the MIT License. See the LICENSE file for details.
 
 <!-- TODO: Make sure you have a LICENSE file in your repository root -->
-🙏 Acknowledgments (Optional)
-Thanks to Vapi AI and Google Gemini for their powerful AI capabilities.
-
-Built upon the foundations provided by Next.js, Firebase, and Tailwind CSS.
-
-UI components from shadcn/ui.
 
 <!-- Add any other acknowledgments here -->
 **Next Steps for You:**
